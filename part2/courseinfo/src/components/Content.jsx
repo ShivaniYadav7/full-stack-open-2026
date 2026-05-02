@@ -1,11 +1,13 @@
 import Part from './Part'
 
-const Content = (props) => {
+const Content = ({ parts }) => {
+    const total = parts.reduce((s, p) => s + p.exercises, 0)
     return (
         <>        
-        {props.parts.map(part => 
-            <Part key = {part.id} name = {part.name} exercises = {part.exercises}/>
+        {parts.map(part => 
+            <Part key = {part.id} name = {part.name} exercises = {part.exercises}/>            
         )}
+        <p><b>total of {total} exercises</b></p>
         </>
     )
 }

@@ -1,11 +1,11 @@
 import Header from './Header'
 import Content from './Content'
 
-const Course = (props) => {
+const Course = ({ course }) => {
     return (
         <>        
-        <Header name = {props.course.name}/>
-        <Content parts = {props.course.parts}/>
+        <Header name = {course.name}/>
+        <Content parts = {course.parts}/>
         </>
     )
 }
