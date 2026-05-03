@@ -9,13 +9,20 @@ const App = () => {
   ])
 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [searchName, setSearchName] = useState('')
+
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
 
-  const [newNumber, setNewNumber] = useState('')
+  
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
+  }
+
+  const handleSearchName = (event) => {
+    setSearchName(event.target.value)
   }
 
   const addPerson = (event) => {
@@ -38,9 +45,29 @@ const App = () => {
     setNewNumber('')
   }
 
+  
+  const personsToShow = searchName === ''
+    ? persons
+    : persons.filter(person =>
+        person.name.toLowerCase().includes(searchName.toLowerCase())
+    )
+
+
+    const search = (event) => {
+      event.preventDefault()
+      persons.filter(person => {person.name.startsWith(searchName)})
+    }
+
   return(
     <div>
       <h2>Phonebook</h2>
+      
+      <form onSubmit = {search}>
+        <p>filter shown with
+        <input value={searchName} onChange={handleSearchName}/>
+      </p>
+      </form>
+      <h2>add a new</h2>
       <form onSubmit = {addPerson}>
         <div>
           name: <input value={newName} onChange={handleNameChange}/>
@@ -53,7 +80,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(person => 
+      {personsToShow.map(person => 
         <p key={person.name}>{person.name}  {person.number}</p>
       )}
 
