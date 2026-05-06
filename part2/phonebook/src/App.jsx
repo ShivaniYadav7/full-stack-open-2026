@@ -46,9 +46,18 @@ const App = (props) => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== alreadyExists.id ? p : returnedPerson))
             setErrorMessage(`Updated ${newName}'s number to ${newNumber}`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
 
             setNewName('')
             setNewNumber('')
+          })
+          .catch(error => {
+            setErrorMessage(`Information of ${newName} has already been removed from server`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
           })
         }
       }
@@ -58,6 +67,9 @@ const App = (props) => {
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
             setErrorMessage(`Added ${newName}`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
             setNewName('')
             setNewNumber('')
           })
