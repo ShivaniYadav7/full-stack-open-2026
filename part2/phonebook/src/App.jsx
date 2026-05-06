@@ -4,6 +4,7 @@ import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import axios from 'axios'
 import numberService from './services/numberService'
+import InfoNotification from './components/InfoNotification'
 
 const App = (props) => {
   const [persons, setPersons] = useState([])
@@ -11,6 +12,7 @@ const App = (props) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -43,6 +45,7 @@ const App = (props) => {
           .update(alreadyExists.id, personObject)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== alreadyExists.id ? p : returnedPerson))
+            setErrorMessage(`Updated ${newName}'s number to ${newNumber}`)
 
             setNewName('')
             setNewNumber('')
@@ -54,6 +57,7 @@ const App = (props) => {
           .create(personObject) 
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
+            setErrorMessage(`Added ${newName}`)
             setNewName('')
             setNewNumber('')
           })
@@ -87,6 +91,7 @@ const App = (props) => {
   return(
     <div>
       <h2>Phonebook</h2>
+      <InfoNotification message= {errorMessage} />
 
       <Filter search={search} searchName={searchName} handleSearchName={handleSearchName}/>
 
