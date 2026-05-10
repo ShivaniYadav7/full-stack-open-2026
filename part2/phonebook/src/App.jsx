@@ -32,6 +32,9 @@ const App = (props) => {
      .then((response) => {
       setPersons(response)
      })
+     .catch(error => {
+      console.error('error fetching persons: ', error)
+     })
   }, [])
 
   const addPerson = (event) => {

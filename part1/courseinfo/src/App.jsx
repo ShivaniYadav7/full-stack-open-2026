@@ -1,6 +1,6 @@
-import Header from '../components/Header'
-import Content from '../components/Content'
-import Total from '../components/Total'
+import Header from './components/Header'
+import Content from './components/Content'
+import Total from './components/Total'
 
 const App = () => {
   // Exercise 1.5: All data in a single object
