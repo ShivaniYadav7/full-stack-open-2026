@@ -57,8 +57,12 @@ const App = (props) => {
             setNewNumber('')
           })
           .catch(error => {
-            setErrorMessage(`Information of ${newName} has already been removed from server`)
-            setTimeout(() => {
+            if (error.response.data.error) {
+              setErrorMessage(error.response.data.error)
+            } else {
+              setErrorMessage(`Information of ${newName} has already been removed`)
+              }
+              setTimeout(() => {
               setErrorMessage(null)
             }, 5000)
           })
@@ -75,6 +79,10 @@ const App = (props) => {
             }, 5000)
             setNewName('')
             setNewNumber('')
+          })
+          .catch(error => {
+            setErrorMessage(error.response.data.error)
+            setTimeout(() => setErrorMessage(null), 5000)
           })
       }
   }
